@@ -26,7 +26,7 @@ export default function Navbar() {
   };
   return (
     <>
-      <Box position="fixed" w="full" bg="#24212b" px={10}>
+      <Box position="fixed" w="full" bg="#24212b" px={10} zIndex={3}>
         <Flex h={20} alignItems={'center'} justifyContent={'space-between'}>
           <HStack spacing={8} alignItems={'center'}>
             <Box><Heading fontSize="40px" ><a href="https://uptimespy.vercel.app">UPTIME<span style={{ color: "#9f7aea" }} >SPY</span></a></Heading></Box>
@@ -44,7 +44,7 @@ export default function Navbar() {
                   w="fit-content"
                 />
               </PopoverTrigger>
-              <PopoverContent bg="#24212b" w="fit-content" _focus={{ boxShadow: 'none' }}>
+              <PopoverContent bg="#24212b" w="fit-content" _focus={{ boxShadow: 'none' }} zIndex={4}>
                 <PopoverArrow bg="#24212b" />
                 <PopoverBody>
                   <Stack>

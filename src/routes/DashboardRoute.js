@@ -239,7 +239,7 @@ function DashboardRoute() {
                                 return (
                                     <Box key={index} bg="#2a2733" display="flex" flexDirection={{ base: "column", lg: "row" }} p={4} rounded="xl" mb={5}>
                                         <Box>
-                                            <Box display="flex" alignContent="center" alignItems="center" flexDirection="row">
+                                            <Box display="flex" pb={2} alignContent="center" alignItems="center" flexDirection="row">
                                                 <Text w={20} alignItems="center" textAlign="center" color="black" fontWeight="bold" bg={item.status == "up" ? "green.400" : "red.400"} h={6} px={5} rounded="full" mr={2} >{calculate24hUptimePercentage(item)}</Text>
                                                 <Heading size={{ base: "sm", sm: "lg" }} >{item.name}</Heading>
                                             </Box>
