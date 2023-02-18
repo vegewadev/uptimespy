@@ -26,7 +26,7 @@ export default function Navbar() {
   };
   return (
     <>
-      <Box bg="#24212b" px={10}>
+      <Box position="fixed" w="full" bg="#24212b" px={10}>
         <Flex h={20} alignItems={'center'} justifyContent={'space-between'}>
           <HStack spacing={8} alignItems={'center'}>
             <Box><Heading fontSize="40px" ><a href="https://uptimespy.vercel.app">UPTIME<span style={{ color: "#9f7aea" }} >SPY</span></a></Heading></Box>
