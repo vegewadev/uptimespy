@@ -4,10 +4,16 @@ const { debuglog } = require('../debug/log');
 
 // import routes
 const authenticate = require('./routes/authenticate');
+const getsites = require('./routes/sites');
 
 router.post('/authenticate', function (req, res) {
-    debuglog('/api/authenticate called', 'warning', 'Routes');
+    debuglog('POST /api/authenticate called', 'warning', 'Routes');
     authenticate(req, res);
+});
+
+router.get('/sites', function (req, res) {
+    debuglog('GET /api/sites called', 'warning', 'Routes');
+    getsites(req, res);
 });
 
 

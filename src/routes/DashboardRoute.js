@@ -16,178 +16,20 @@ import {
 
 function DashboardRoute() {
 
-    let dummyData = [
-        {
-            name: "Vin's Portfolio",
-            url: "https://vin.rocks",
-            status: "up",
-            uptime: "100%",
-            downtime: "0%",
-            lastChecked: "2021-03-01 12:00:00",
-            lastResponseTime: "0.5s",
-            lastResponseCode: "200",
-            lastResponseSize: "1.5MB",
-            uptime24h: [
-                {
-                    up: false,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
-                {
-                    up: true,
-                },
+    const [fetchedSites, setFetchedSites] = React.useState([]);
 
-            ]
-        },
-        {
-            name: "Raspberry PI",
-            url: "192.168.178.101",
-            status: "down",
-            lastChecked: "2021-03-01 12:00:00",
-            lastResponseTime: "0.5s",
-            lastResponseCode: "200",
-            lastResponseSize: "1.5MB",
-            uptime24h: [
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
-                {
-                    up: false,
-                },
+    React.useEffect(() => {
+        Axios.get("http://localhost:5000/api/sites", {
+            headers: {
+                authorization: localStorage.getItem("token"),
+            },
+        }).then((res) => {
+            setFetchedSites(res.data.sites);
+        }).catch((err) => {
 
-            ]
-        }
-    ]
+        });
+    }, []);
+
 
     /**
      * Calculates the uptime percentage of the last 24 hours
@@ -235,12 +77,12 @@ function DashboardRoute() {
                     <Box mx={10} my={5} w="100%">
                         <Heading>Monitors</Heading>
                         <Box bg="#24212b" mt={5} p={8} pb={3} rounded="xl">
-                            {dummyData.map((item, index) => {
+                            {fetchedSites.map((item, index) => {
                                 return (
                                     <Box key={index} bg="#2a2733" display="flex" flexDirection={{ base: "column", lg: "row" }} p={4} rounded="xl" mb={5}>
                                         <Box>
                                             <Box display="flex" pb={2} alignContent="center" alignItems="center" flexDirection="row">
-                                                <Text w={20} alignItems="center" textAlign="center" color="black" fontWeight="bold" bg={item.status == "up" ? "green.400" : "red.400"} h={6} px={5} rounded="full" mr={2} >{calculate24hUptimePercentage(item)}</Text>
+                                                <Text w={24} alignItems="center" textAlign="center" color="black" fontWeight="bold" bg={item.status == "up" ? "green.400" : "red.400"} h={6} px={5} rounded="full" mr={2} >{calculate24hUptimePercentage(item)}</Text>
                                                 <Heading size={{ base: "sm", sm: "lg" }} >{item.name}</Heading>
                                             </Box>
                                             <Box>
