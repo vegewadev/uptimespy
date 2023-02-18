@@ -6,6 +6,7 @@ const { debuglog } = require('../debug/log');
 const authenticate = require('./routes/authenticate');
 const getSites = require('./routes/sites');
 const getSite = require('./routes/getSite');
+const deleteSite = require('./routes/deleteSite');
 
 router.post('/authenticate', function (req, res) {
     debuglog('POST /api/authenticate called', 'warning', 'Routes');
@@ -20,6 +21,11 @@ router.get('/sites', function (req, res) {
 router.get('/site/:id', function (req, res) {
     debuglog(`GET /api/site/${req.params.id} called`, 'warning', 'Routes');
     getSite(req, res);
+});
+
+router.delete('/site/:id', function (req, res) {
+    debuglog(`DELETE /api/site/${req.params.id} called`, 'warning', 'Routes');
+    deleteSite(req, res);
 });
 
 
