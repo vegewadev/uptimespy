@@ -23,9 +23,6 @@ function DashboardRoute() {
             uptime: "100%",
             downtime: "0%",
             lastChecked: "2021-03-01 12:00:00",
-            lastStatus: "up",
-            lastUptime: "100%",
-            lastDowntime: "0%",
             lastResponseTime: "0.5s",
             lastResponseCode: "200",
             lastResponseSize: "1.5MB",
@@ -144,7 +141,7 @@ function DashboardRoute() {
                 <Button mx={10} my={5} leftIcon={<AddIcon />} >
                     Add new Monitor
                 </Button>
-                <Box display="flex" flexDirection="row">
+                <Box display="flex" mr={20} flexDirection="column">
                     <Box mx={10} my={5} w="100%">
                         <Heading>Monitors</Heading>
                         <Box bg="#24212b" mt={5} p={8} rounded="xl">
@@ -153,7 +150,7 @@ function DashboardRoute() {
                                     <Box key={index} bg="#2a2733" display="flex" flexDirection="row" p={4} rounded="xl" my={2}>
                                         <Box>
                                             <Box display="flex" alignContent="center" alignItems="center" flexDirection="row">
-                                                <Text color="black" fontWeight="bold" bg="green.400" h={6} px={5} rounded="full" mr={2} >{calculate24hUptimePercentage(item)}</Text>
+                                                <Text color="black" fontWeight="bold" bg={item.status == "up" ? "green.400" : "red.400"} h={6} px={5} rounded="full" mr={2} >{calculate24hUptimePercentage(item)}</Text>
                                                 <Heading size="lg" >{item.name}</Heading>
                                             </Box>
                                             <Box>
@@ -173,10 +170,6 @@ function DashboardRoute() {
                                 )
                             })}
                         </Box>
-                    </Box>
-                    <Box mx={10} my={5} w="100%">
-                        <Heading>Statistics</Heading>
-
                     </Box>
                 </Box>
             </Box>
