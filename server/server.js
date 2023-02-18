@@ -75,6 +75,7 @@ app.use((req, res, next) => {
     }
 });
 
+
 // set up routes
 debuglog('Setting up route handling', 'warning', 'Server');
 const routes = require('./routes');

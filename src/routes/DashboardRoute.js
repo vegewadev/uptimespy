@@ -48,7 +48,7 @@ function DashboardRoute() {
         <Box>
             <Navbar />
             <Box pt={24}>
-                <Button bg="#2a2733" _hover={{ bg: "#373342" }} mx={10} my={5} leftIcon={<AddIcon />} >
+                <Button rounded="xl" bg="#2a2733" _hover={{ bg: "#373342" }} mx={10} my={5} leftIcon={<AddIcon />} >
                     Add new Monitor
                 </Button>
                 <Box display="flex" mr={20} flexDirection="column">

@@ -29,6 +29,7 @@ const RoutesHandler = () => {
         <Route path="/" element={<LoginRoute />} />
         <Route path="/dashboard" element={<DashboardRoute />} />
         <Route path="/monitor/:id" element={<SiteInfoRoute />} />
+        <Route path="*" element={<LoginRoute />} />
       </Routes>
     </ChakraProvider>
   );
