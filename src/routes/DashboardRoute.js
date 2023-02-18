@@ -189,6 +189,11 @@ function DashboardRoute() {
         }
     ]
 
+    /**
+     * Calculates the uptime percentage of the last 24 hours
+     * @param {Object} item
+     * @returns {String}
+     */
     function calculate24hUptimePercentage(item) {
         let up = 0;
         let down = 0;
@@ -232,17 +237,17 @@ function DashboardRoute() {
                         <Box bg="#24212b" mt={5} p={8} pb={3} rounded="xl">
                             {dummyData.map((item, index) => {
                                 return (
-                                    <Box key={index} bg="#2a2733" display="flex" flexDirection="row" p={4} rounded="xl" mb={5}>
+                                    <Box key={index} bg="#2a2733" display="flex" flexDirection={{ base: "column", lg: "row" }} p={4} rounded="xl" mb={5}>
                                         <Box>
                                             <Box display="flex" alignContent="center" alignItems="center" flexDirection="row">
                                                 <Text w={20} alignItems="center" textAlign="center" color="black" fontWeight="bold" bg={item.status == "up" ? "green.400" : "red.400"} h={6} px={5} rounded="full" mr={2} >{calculate24hUptimePercentage(item)}</Text>
-                                                <Heading size="lg" >{item.name}</Heading>
+                                                <Heading size={{ base: "sm", sm: "lg" }} >{item.name}</Heading>
                                             </Box>
                                             <Box>
                                                 {item.url}
                                             </Box>
                                         </Box>
-                                        <Box ml="auto">
+                                        <Box display={{ base: "none", md: "block" }} ml={{ base: "none", lg: "auto" }}>
                                             <Box mt={5} display="flex" flexDirection="row">
                                                 {item.uptime24h.map((item, index) => {
                                                     return (
