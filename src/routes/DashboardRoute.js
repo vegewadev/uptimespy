@@ -6,7 +6,8 @@ import {
     Box,
     Button,
     Heading,
-    Text
+    Text,
+    Tooltip
 } from "@chakra-ui/react";
 
 import {
@@ -101,6 +102,90 @@ function DashboardRoute() {
                 },
 
             ]
+        },
+        {
+            name: "Raspberry PI",
+            url: "192.168.178.101",
+            status: "down",
+            lastChecked: "2021-03-01 12:00:00",
+            lastResponseTime: "0.5s",
+            lastResponseCode: "200",
+            lastResponseSize: "1.5MB",
+            uptime24h: [
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+                {
+                    up: false,
+                },
+
+            ]
         }
     ]
 
@@ -138,19 +223,19 @@ function DashboardRoute() {
         <Box>
             <Navbar />
             <Box pt={24}>
-                <Button mx={10} my={5} leftIcon={<AddIcon />} >
+                <Button bg="#2a2733" _hover={{ bg: "#373342" }} mx={10} my={5} leftIcon={<AddIcon />} >
                     Add new Monitor
                 </Button>
                 <Box display="flex" mr={20} flexDirection="column">
                     <Box mx={10} my={5} w="100%">
                         <Heading>Monitors</Heading>
-                        <Box bg="#24212b" mt={5} p={8} rounded="xl">
+                        <Box bg="#24212b" mt={5} p={8} pb={3} rounded="xl">
                             {dummyData.map((item, index) => {
                                 return (
-                                    <Box key={index} bg="#2a2733" display="flex" flexDirection="row" p={4} rounded="xl" my={2}>
+                                    <Box key={index} bg="#2a2733" display="flex" flexDirection="row" p={4} rounded="xl" mb={5}>
                                         <Box>
                                             <Box display="flex" alignContent="center" alignItems="center" flexDirection="row">
-                                                <Text color="black" fontWeight="bold" bg={item.status == "up" ? "green.400" : "red.400"} h={6} px={5} rounded="full" mr={2} >{calculate24hUptimePercentage(item)}</Text>
+                                                <Text w={20} alignItems="center" textAlign="center" color="black" fontWeight="bold" bg={item.status == "up" ? "green.400" : "red.400"} h={6} px={5} rounded="full" mr={2} >{calculate24hUptimePercentage(item)}</Text>
                                                 <Heading size="lg" >{item.name}</Heading>
                                             </Box>
                                             <Box>
@@ -161,7 +246,9 @@ function DashboardRoute() {
                                             <Box mt={5} display="flex" flexDirection="row">
                                                 {item.uptime24h.map((item, index) => {
                                                     return (
-                                                        <Box key={index} bg={item.up ? "green.400" : "red.400"} h={6} px={1} rounded="full" mr={2} />
+                                                        <Tooltip bg="#373342" color="white" rounded="full" label={item.up ? "Host reachable" : "Host unreachable"} placement='top'>
+                                                            <Box key={index} bg={item.up ? "green.400" : "red.400"} h={6} px={1} rounded="full" mr={2} />
+                                                        </Tooltip>
                                                     )
                                                 })}
                                             </Box>
@@ -173,7 +260,7 @@ function DashboardRoute() {
                     </Box>
                 </Box>
             </Box>
-        </Box>
+        </Box >
     );
 }
 

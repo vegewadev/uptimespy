@@ -35,6 +35,8 @@ export default function Navbar() {
             <Popover>
               <PopoverTrigger>
                 <IconButton
+                  bg="#2a2733"
+                  _hover={{ bg: "#373342" }}
                   aria-label="More server options"
                   icon={<SettingsIcon />}
                   size="lg"
