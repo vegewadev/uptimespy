@@ -7,6 +7,7 @@ const siteSchema = new Schema({
     status: String,
     lastChecked: Date,
     lastResponseTime: String,
+    certificateExpires: String,
     lastResponseCode: Number,
     lastResponseSize: String,
     uptime24h: [
