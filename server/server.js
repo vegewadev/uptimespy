@@ -65,10 +65,12 @@ app.use((req, res, next) => {
         jwt.verify(req.headers.authorization.split(' ')[1], process.env.JWT_SECRET, (err, decode) => {
             if (err) req.user = undefined;
             req.user = decode;
+            debuglog(`JWT token verified: ${decode.username}`, 'success', 'Server');
             next();
         });
     } else {
         req.user = undefined;
+        debuglog('No JWT token provided', 'warning', 'Server');
         next();
     }
 });
