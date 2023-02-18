@@ -13,7 +13,7 @@ import {
 
 import SiteCard from "../components/SiteCard";
 
-function DashboardRoute() {
+function SiteInfoRoute() {
 
     const [fetchedSites, setFetchedSites] = React.useState([]);
 
@@ -68,4 +68,4 @@ function DashboardRoute() {
     );
 }
 
-export default DashboardRoute;
+export default SiteInfoRoute;

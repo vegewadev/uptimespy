@@ -4,7 +4,8 @@ const { debuglog } = require('../debug/log');
 
 // import routes
 const authenticate = require('./routes/authenticate');
-const getsites = require('./routes/sites');
+const getSites = require('./routes/sites');
+const getSite = require('./routes/getSite');
 
 router.post('/authenticate', function (req, res) {
     debuglog('POST /api/authenticate called', 'warning', 'Routes');
@@ -13,7 +14,12 @@ router.post('/authenticate', function (req, res) {
 
 router.get('/sites', function (req, res) {
     debuglog('GET /api/sites called', 'warning', 'Routes');
-    getsites(req, res);
+    getSites(req, res);
+});
+
+router.get('/site/:id', function (req, res) {
+    debuglog(`GET /api/site/${req.params.id} called`, 'warning', 'Routes');
+    getSite(req, res);
 });
 
 

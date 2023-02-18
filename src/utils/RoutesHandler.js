@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ChakraProvider, extendTheme, ColorModeScript } from '@chakra-ui/react'
-
 import LoginRoute from "../routes/LoginRoute";
 import DashboardRoute from "../routes/DashboardRoute";
+import SiteInfoRoute from "../routes/SiteInfoRoute";
 
 const RoutesHandler = () => {
 
@@ -24,10 +24,11 @@ const RoutesHandler = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      <ColorModeScript/>
+      <ColorModeScript />
       <Routes>
         <Route path="/" element={<LoginRoute />} />
         <Route path="/dashboard" element={<DashboardRoute />} />
+        <Route path="/monitor/:id" element={<SiteInfoRoute />} />
       </Routes>
     </ChakraProvider>
   );
