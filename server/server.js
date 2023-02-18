@@ -79,16 +79,16 @@ const routes = require('./routes');
 app.use('/api/', routes);
 
 
-app.listen(process.env.PORT)
+app.listen(process.env.SERVER_PORT)
     .on('error', (err) => {
         debuglog(`Error starting server: ${err}`, 'error', 'Server');
     })
     .on('listening', () => {
-        debuglog(`Server listening on port ${process.env.PORT}`, 'success', 'Server');
+        debuglog(`Server listening on port ${process.env.SERVER_PORT}`, 'success', 'Server');
     })
     .on('close', () => {
-        debuglog(`Server closed on port ${process.env.PORT}`, 'warning', 'Server');
+        debuglog(`Server closed on port ${process.env.SERVER_PORT}`, 'warning', 'Server');
     })
     .on('connection', () => {
-        debuglog(`Server connection on port ${process.env.PORT}`, 'success', 'Server');
+        debuglog(`Server connection on port ${process.env.SERVER_PORT}`, 'success', 'Server');
     });
