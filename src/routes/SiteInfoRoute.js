@@ -237,7 +237,6 @@ function SiteInfoRoute() {
                         <Box gap={3} display="flex" flexDirection="row">
                             <Button onClick={DeleteModalOnOpen} mt={5} rounded="xl" bg="#2a2733" _hover={{ bg: "#373342" }} leftIcon={<DeleteIcon />} >Delete</Button>
                             <Button onClick={EditModalOnOpen} mt={5} rounded="xl" bg="#2a2733" _hover={{ bg: "#373342" }} leftIcon={<EditIcon />} >Edit</Button>
-
                         </Box>
                         <Box gap={10} alignItems="center" textAlign="center" alignContent="center" justifyContent="center" display="flex" flexDirection={{ base: "column", md: "row" }} bg="#24212b" mt={5} p={8} rounded="xl">
                             <Box alignContent="center" alignItems="center" textAlign="center">
