@@ -18,6 +18,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
+    useToast,
 } from "@chakra-ui/react";
 import {
     useParams
@@ -30,6 +31,8 @@ import {
 import { useDisclosure } from "@chakra-ui/react"
 
 function SiteInfoRoute() {
+
+    const toast = useToast();
 
     const [fetchedSite, setFetchedSite] = React.useState([]);
     const { id } = useParams();
@@ -46,6 +49,18 @@ function SiteInfoRoute() {
         });
     }, []);
 
+    const updateSite = () => {
+        Axios.get(`http://localhost:5000/api/site/${id}`, {
+            headers: {
+                authorization: localStorage.getItem("token"),
+            },
+        }).then((res) => {
+            setFetchedSite(res.data.site);
+        }).catch((err) => {
+            window.location.href = "/";
+        });
+    };
+
 
     React.useEffect(() => {
         document.title = "UPTIMESPY | Dashboard";
@@ -58,6 +73,10 @@ function SiteInfoRoute() {
         });
     }, []);
     const { isOpen: DeleteModalIsOpen, onOpen: DeleteModalOnOpen, onClose: DeleteModalOnClose } = useDisclosure()
+    const { isOpen: EditModalIsOpen, onOpen: EditModalOnOpen, onClose: EditModalOnClose } = useDisclosure()
+
+    const initialRefEditModal = React.useRef(null)
+    const finalRefEditModal = React.useRef(null)
 
     const initialRefDeleteModal = React.useRef(null)
     const finalRefDeleteModal = React.useRef(null)
@@ -81,9 +100,95 @@ function SiteInfoRoute() {
         });
     }
 
+    const [nameOfNewMonitor, setNameOfNewMonitor] = React.useState("");
+    const [urlOfNewMonitor, setUrlOfNewMonitor] = React.useState("");
+
+    const handleNameOfNewMonitorChange = (e) => {
+        setNameOfNewMonitor(e.target.value);
+    }
+
+    const handleUrlOfNewMonitorChange = (e) => {
+        setUrlOfNewMonitor(e.target.value);
+    }
+
+    const handleEdit = async () => {
+        Axios.put(`http://localhost:5000/api/site/${id}`, {
+            name: nameOfNewMonitor,
+            url: urlOfNewMonitor
+        }, {
+            headers: {
+                authorization: localStorage.getItem("token"),
+            },
+        }).then((res) => {
+            EditModalOnClose();
+            updateSite();
+            return true;
+        }).catch((err) => {
+            updateSite();
+            return false;
+        });
+    };
+
+
     return (
         <Box>
             <Navbar />
+            <Modal
+                initialFocusRef={initialRefEditModal}
+                finalFocusRef={finalRefEditModal}
+                isOpen={EditModalIsOpen}
+                onClose={EditModalOnClose}
+
+            >
+                <ModalOverlay />
+                <ModalContent
+                    bg="#24212b">
+                    <ModalHeader>Edit Site Monitor</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={6}>
+                        <FormControl>
+                            <FormLabel>Name<span style={{ color: "#ff4230" }}>*</span></FormLabel>
+                            <Input onChange={handleNameOfNewMonitorChange} placeholder='Name of the monitor' />
+                        </FormControl>
+
+                        <FormControl mt={4}>
+                            <FormLabel>URL<span style={{ color: "#ff4230" }}>*</span></FormLabel>
+                            <Input onChange={handleUrlOfNewMonitorChange} placeholder='URL of the site to monitor' />
+                        </FormControl>
+                    </ModalBody>
+
+                    <ModalFooter>
+
+                        {nameOfNewMonitor.length > 0 && urlOfNewMonitor.length >= 10 && (urlOfNewMonitor.startsWith("http://") || urlOfNewMonitor.startsWith("https://")) ? <Button
+
+
+                            onClick={() => {
+                                handleEdit() ? toast({
+                                    title: "Monitor edited.",
+                                    description: "Your monitor has been edited successfully.",
+                                    status: "success",
+                                    duration: 9000,
+                                    isClosable: true,
+                                }) : toast({
+                                    title: "Failed to edit monitor.",
+                                    description: "Could not edit monitor. Please try again later.",
+                                    status: "success",
+                                    duration: 9000,
+                                    isClosable: true,
+                                })
+                            }}
+                            colorScheme='green' mr={3}>
+                            Edit
+                        </Button> : <Button bg="#373342" disabled _hover={{
+                            bg: "#373342"
+                        }} cursor="not-allowed" colorScheme='green' mr={3}>
+                            Edit
+                        </Button>
+                        }
+                        <Button onClick={EditModalOnClose}>Cancel</Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
             <Modal
                 initialFocusRef={initialRefDeleteModal}
                 finalFocusRef={finalRefDeleteModal}
@@ -125,7 +230,7 @@ function SiteInfoRoute() {
                         <Heading fontWeight="normal" size="md" color="gray.300">{fetchedSite.url ? fetchedSite.url : "Loading..."}</Heading>
                         <Box gap={3} display="flex" flexDirection="row">
                             <Button onClick={DeleteModalOnOpen} mt={5} rounded="xl" bg="#2a2733" _hover={{ bg: "#373342" }} leftIcon={<DeleteIcon />} >Delete</Button>
-                            <Button mt={5} rounded="xl" bg="#2a2733" _hover={{ bg: "#373342" }} leftIcon={<EditIcon />} >Edit</Button>
+                            <Button onClick={EditModalOnOpen} mt={5} rounded="xl" bg="#2a2733" _hover={{ bg: "#373342" }} leftIcon={<EditIcon />} >Edit</Button>
 
                         </Box>
                         <Box gap={10} alignItems="center" textAlign="center" alignContent="center" justifyContent="center" display="flex" flexDirection={{ base: "column", md: "row" }} bg="#24212b" mt={5} p={8} rounded="xl">

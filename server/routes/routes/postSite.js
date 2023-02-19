@@ -14,7 +14,7 @@ module.exports = async function (req, res) {
     const site = new siteSchema({
         name: req.body.name,
         url: req.body.url,
-        status: "Up",
+        status: "up",
         lastChecked: new Date(),
         lastResponseTime: "0ms",
         certificateExpires: "0 days",
