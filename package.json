@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "author": "Vin H<vinh260607@gmail.com>",
   "scripts": {
-    "start": "react-scripts start",
+    "frontend": "react-scripts start",
     "serverdev": "nodemon server/server.js",
-    "checker": "nodemon server/checker.js",
+    "checker": "node server/checker.js",
     "server": "node server/server.js",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "react-scripts build"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
