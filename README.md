@@ -43,5 +43,8 @@ NOTE: THIS MAKES THE FRONTEND RUN IN DEVELOPMENT MODE IF YOU WANT TO RUN IT IN P
 # 🦮 Contributing
 The main purpose of this repository is to continue evolving UPTIMESPY, making it faster, more stable and more efficient. If you wish to contribute just add your changes/fixes and I will review them once you make a pull request. (Shouldnt take longer than 2 days)
 
+# 💸 Sponsoring
+I don't want to be sponsored nor do I want to receive money for what I do. Instead, please help the people in need and donate to a charity. Thank you.
+
 # 👨 Creator
 The creator of this application is Vin H and his website is: https://vin.rocks
