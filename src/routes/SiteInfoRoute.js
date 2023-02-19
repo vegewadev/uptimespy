@@ -2,11 +2,22 @@ import React from "react";
 import Axios from "axios";
 import Navbar from "../components/Navbar";
 import calculate24HourUptimePercentage from "../utils/calculate24HourUptimePercentage";
+import getDateFromRemainingDays from "../utils/getDateFromRemainingDays";
 import {
     Box,
     Text,
+    FormControl,
+    FormLabel,
+    Input,
     Heading,
-    Button
+    Button,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
 } from "@chakra-ui/react";
 import {
     useParams
@@ -15,6 +26,8 @@ import {
     DeleteIcon,
     EditIcon
 } from "@chakra-ui/icons";
+
+import { useDisclosure } from "@chakra-ui/react"
 
 function SiteInfoRoute() {
 
@@ -34,8 +47,6 @@ function SiteInfoRoute() {
     }, []);
 
 
-
-
     React.useEffect(() => {
         document.title = "UPTIMESPY | Dashboard";
         Axios.post("http://localhost:5000/api/authenticate", null, {
@@ -46,25 +57,74 @@ function SiteInfoRoute() {
             window.location.href = "/";
         });
     }, []);
+    const { isOpen: DeleteModalIsOpen, onOpen: DeleteModalOnOpen, onClose: DeleteModalOnClose } = useDisclosure()
 
-    function getDateFromRemainingDays(days) {
-        days = days.split(" ")[0];
-        const date = new Date();
-        date.setDate(date.getDate() + parseInt(days));
-        return date.toDateString();
+    const initialRefDeleteModal = React.useRef(null)
+    const finalRefDeleteModal = React.useRef(null)
+
+
+    const [deleteInput, setDeleteInput] = React.useState("");
+
+    const handleDeleteInput = (e) => {
+        setDeleteInput(e.target.value);
     }
 
+    const handleDelete = () => {
+        Axios.delete(`http://localhost:5000/api/site/${id}`, {
+            headers: {
+                authorization: localStorage.getItem("token"),
+            },
+        }).then((res) => {
+            window.location.href = "/dashboard";
+        }).catch((err) => {
+            window.location.href = "/";
+        });
+    }
 
     return (
         <Box>
             <Navbar />
+            <Modal
+                initialFocusRef={initialRefDeleteModal}
+                finalFocusRef={finalRefDeleteModal}
+                isOpen={DeleteModalIsOpen}
+                onClose={DeleteModalOnClose}
+
+            >
+                <ModalOverlay />
+                <ModalContent
+                    bg="#24212b">
+                    <ModalHeader>Delete Site Monitor</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={6}>
+
+                        <FormControl>
+                            <FormLabel>Type "<span style={{ fontWeight: "bolder" }} >{fetchedSite.name}</span>" to delete the site monitor</FormLabel>
+                            <Input onChange={handleDeleteInput} ref={initialRefDeleteModal} placeholder={fetchedSite.name} />
+                        </FormControl>
+                    </ModalBody>
+
+                    <ModalFooter>
+                        {
+                            deleteInput === fetchedSite.name ? <Button onClick={handleDelete} colorScheme='red' mr={3}>
+                                Delete
+                            </Button> : <Button bg="#373342" disabled _hover={{
+                                bg: "#373342"
+                            }} cursor="not-allowed" colorScheme='red' mr={3}>
+                                Delete
+                            </Button>
+                        }
+                        <Button onClick={DeleteModalOnClose}>Cancel</Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
             <Box pt={24}>
                 <Box display="flex" mr={20} flexDirection="column">
                     <Box mx={10} my={5} w="100%">
                         <Heading>{fetchedSite.name ? fetchedSite.name : "Loading..."}</Heading>
                         <Heading fontWeight="normal" size="md" color="gray.300">{fetchedSite.url ? fetchedSite.url : "Loading..."}</Heading>
                         <Box gap={3} display="flex" flexDirection="row">
-                            <Button mt={5} rounded="xl" bg="#2a2733" _hover={{ bg: "#373342" }} leftIcon={<DeleteIcon />} >Delete</Button>
+                            <Button onClick={DeleteModalOnOpen} mt={5} rounded="xl" bg="#2a2733" _hover={{ bg: "#373342" }} leftIcon={<DeleteIcon />} >Delete</Button>
                             <Button mt={5} rounded="xl" bg="#2a2733" _hover={{ bg: "#373342" }} leftIcon={<EditIcon />} >Edit</Button>
 
                         </Box>
