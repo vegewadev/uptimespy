@@ -5,6 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "serverdev": "nodemon server/server.js",
+    "checker": "nodemon server/checker.js",
     "server": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",

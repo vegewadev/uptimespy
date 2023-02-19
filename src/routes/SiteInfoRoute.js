@@ -129,6 +129,12 @@ function SiteInfoRoute() {
         });
     };
 
+    React.useEffect(() => {
+        setInterval(() => {
+            updateSite();
+        }, 1000);
+    }, []);
+
 
     return (
         <Box>
@@ -247,7 +253,22 @@ function SiteInfoRoute() {
                             <Box alignContent="center" alignItems="center" textAlign="center">
                                 <Heading fontWeight="normal" size="lg">SSL Expiration</Heading>
                                 <Text pb={2} color="gray.300">({fetchedSite.certificateExpires ? getDateFromRemainingDays(fetchedSite.certificateExpires) : null})</Text>
-                                <Heading as="p" fontWeight="normal" size="md">in {fetchedSite.certificateExpires ? fetchedSite.certificateExpires : "Loading..."}</Heading>
+                                <Heading as="p" fontWeight="normal" size="md">{fetchedSite.certificateExpires ? fetchedSite.certificateExpires : "Loading..."}</Heading>
+                            </Box>
+                            <Box alignContent="center" alignItems="center" textAlign="center">
+                                <Heading fontWeight="normal" size="lg">Status</Heading>
+                                <Text pb={2} color="gray.300">(current)</Text>
+                                <Heading as="p" fontWeight="normal" size="md">{fetchedSite.status ? fetchedSite.status : "Loading..."}</Heading>
+                            </Box>
+                            <Box alignContent="center" alignItems="center" textAlign="center">
+                                <Heading fontWeight="normal" size="lg">Response Size</Heading>
+                                <Text pb={2} color="gray.300">(current)</Text>
+                                <Heading as="p" fontWeight="normal" size="md">{fetchedSite.lastResponseSize ? fetchedSite.lastResponseSize : "Loading..."}</Heading>
+                            </Box>
+                            <Box alignContent="center" alignItems="center" textAlign="center">
+                                <Heading fontWeight="normal" size="lg">Response Code</Heading>
+                                <Text pb={2} color="gray.300">(current)</Text>
+                                <Heading as="p" fontWeight="normal" size="md">{fetchedSite.lastResponseCode ? fetchedSite.lastResponseCode : "Loading..."}</Heading>
                             </Box>
                         </Box>
                     </Box>

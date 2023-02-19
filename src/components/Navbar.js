@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import {
   Box,
   Flex,
@@ -11,14 +10,12 @@ import {
   PopoverBody,
   PopoverArrow,
   Heading,
-  useDisclosure,
   Stack,
 } from '@chakra-ui/react';
 
 import { SettingsIcon } from '@chakra-ui/icons';
 import { TbWebhook } from 'react-icons/tb';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const logout = () => {
@@ -30,7 +27,7 @@ export default function Navbar() {
       <Box position="fixed" w="full" bg="#24212b" px={10} zIndex={3}>
         <Flex h={20} alignItems={'center'} justifyContent={'space-between'}>
           <HStack spacing={8} alignItems={'center'}>
-            <Box><Heading fontSize="40px" ><Link to="/dashboard">UPTIME<span style={{ color: "#9f7aea" }} >SPY</span></Link></Heading></Box>
+            <Box><Heading fontSize="40px" ><a href="/dashboard">UPTIME<span style={{ color: "#9f7aea" }} >SPY</span></a></Heading></Box>
           </HStack>
           <Flex alignItems={'center'}>
             <Popover>
